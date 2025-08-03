@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
@@ -6,19 +7,17 @@ namespace BuggyTasks.ViewModels;
 
 public partial class NewTaskViewModel : ObservableObject
 {
-    [ObservableProperty]
+    public ObservableCollection<string> Tasks { get; } = new();
+    [ObservableProperty] 
     string newTaskTitle;
-
-    public ICommand AddNewTaskCommand { get; } 
-
-    public NewTaskViewModel()
+    [RelayCommand]
+    private void AddTask()
     {
-        AddNewTaskCommand = new RelayCommand(OnAddTask);
-    }
-
-    void OnAddTask()
-    {
-        // Simulate adding a task
-        Console.WriteLine($"Added task: {NewTaskTitle}");
+        if (!string.IsNullOrWhiteSpace(NewTaskTitle))
+        {
+            Tasks.Add(NewTaskTitle);
+            Console.WriteLine($"New Task: {NewTaskTitle}");
+            NewTaskTitle = string.Empty;
+        }
     }
 }

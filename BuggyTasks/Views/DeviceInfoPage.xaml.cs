@@ -10,5 +10,7 @@ public partial class DeviceInfoPage : ContentPage
         InitializeComponent();
         var model = DeviceInfo.Model;
         var platform = DeviceInfo.Platform.ToString();
+
+        DeviceInfoLabel.Text = $"Model: {model}\nPlatform: {platform}";
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.ApplicationModel;
+using System;
 
 namespace BuggyTasks.Views;
 
@@ -13,15 +14,30 @@ public partial class LocationPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        GetLocation(); 
+        _ = GetLocation(); 
     }
 
-    Task GetLocation()
+    private async Task GetLocation()
     {
-        var location =  Geolocation.GetLastKnownLocationAsync(); 
-        if (location != null)
+        try
         {
-            Console.WriteLine($"Lat: {location.Latitude}, Long: {location.Longitude}");
+            var location = await Geolocation.GetLastKnownLocationAsync();
+
+            if (location != null)
+            {
+                string message = $"Latitude: {location.Latitude}, Longitude: {location.Longitude}";
+                Console.WriteLine(message);
+                LocationLabel.Text = message;
+            }
+            else
+            {
+                LocationLabel.Text = "Failed to get last known location";
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"LOCATION ERROR: {ex.Message}");
+            LocationLabel.Text = "Error getting last known location.";
         }
     }
 }

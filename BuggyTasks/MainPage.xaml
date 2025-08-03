@@ -1,7 +1,7 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BuggyTasks.Views.MainPage">
-    <VerticalStackLayout Padding="30">
+    <VerticalStackLayout Padding="30" Spacing="20">
         <Button Text="Go to Task List" Clicked="OnGoToTaskList"/>
         <Button Text="Add New Task" Clicked="OnAddTask"/>
         <Button Text="Get Location" Clicked="OnGetLocation"/>
